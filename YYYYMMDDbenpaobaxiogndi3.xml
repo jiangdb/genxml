@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.youtube.com/schemas/cms/2.0" >
+  <asset type="web" tag="YYYYMMDDvideoHD.ts">
+  </asset>
+  <file type="video" tag="YYYYMMDDvideoHD.ts">
+  </file>
+  <ownership/>
+  <relationship tag="owner_relationship">
+    <item path="/feed/asset[@tag='YYYYMMDDvideoHD.ts']"/>
+    <related_item path="/feed/ownership[1]"/>
+  </relationship>
+  <video tag="YYYYMMDDvideoHD.ts">
+    <localized_info lang="zh-Hans" default="true" >
+    </localized_info>
+    <genre>Entertainment</genre>
+    <allow_embedding>True</allow_embedding>
+    <allow_comments>Always</allow_comments>
+    <allow_ratings>True</allow_ratings>
+  </video>
+  <relationship tag="video_relationship">
+    <item path="/feed/file[@tag='YYYYMMDDvideoHD.ts']"/>
+    <related_item path="/feed/video[@tag='YYYYMMDDvideoHD.ts']"/>
+  </relationship>
+  <ad_policy tag="YYYYMMDDvideoHD.ts">
+    <instream>
+      <prerolls>Allow</prerolls>
+      <midrolls>Allow</midrolls>
+    </instream>
+  </ad_policy>
+  <video_breaks>
+  </video_breaks>
+  <playlist>
+    <item index="1" path="/feed/video[@tag='YYYYMMDDvideoHD.ts']" />
+  </playlist>
+  <relationship tag="ad_relationship">
+    <item path="/feed/video[@tag='YYYYMMDDvideoHD.ts']" />
+    <related_item path="/feed/ad_policy[@tag='YYYYMMDDvideoHD.ts']" />
+    <related_item path="/feed/video_breaks[1]" />
+  </relationship>
+  <rights_admin type="usage" owner="True"/>
+  <rights_admin type="match" owner="True"/>
+  <rights_policy>
+    <rule action="monetize"/>
+  </rights_policy>
+  <claim type="audiovisual" video="/feed/video[@tag='YYYYMMDDvideoHD.ts']" asset="/feed/asset[@tag='YYYYMMDDvideoHD.ts']" rights_admin="/feed/rights_admin[@type='usage']" />
+</feed>
