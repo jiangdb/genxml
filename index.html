@@ -113,8 +113,9 @@
 <script language="javascript">
  
  
-function check()
+function check(type)
 {
+document.getElementById("type").value = type;
 var temp = document.getElementById("Notification").value;
 var str="";
 if(temp!="" && temp.indexOf(",")>0)	
@@ -315,10 +316,12 @@ alert(str);
       <textarea name="VideoKeywordsEn" id="textarea16" style=" font-size: 18px" cols="35" rows="6" placeholder="keywords in simplified chinese" ></textarea>
   </div>
 </div>
+    <input id="type" name="type" value="" type="hidden">
 
 <div class="neirong2 ">
       <div style="float:left; height:100px; line-height:100px; width:1000px; text-align: center; margin: 0 auto;" >
-   <input class="submit" type="submit" name="submit" id="submit" value="递交" onclick="check()" style=" width:200px; height:100px;">
+   <input class="submit" type="submit" name="submit" value="生成XML" onclick="check('xml')" style=" width:200px; height:80px;">
+   <input class="submit" type="submit" name="submit" value="生成CSV" onclick="check('csv')" style=" width:200px; height:80px;">
 </div>
 </div>
 
