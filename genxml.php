@@ -188,60 +188,51 @@ if($_POST['type'] == 'xml') {
     header ( 'Content-Length: ' . filesize ( $filename ) );
     @readfile ( $filename );
 } else {
-    if (($csvFile = fopen('example.csv', 'r')) === FALSE) {
-        throw new \Exception('Couldn\'t open the file');
-    }
-    $csvArray = array();
-    $keys = fgetcsv($csvFile, 2000, ",");
-    while (($data = fgetcsv($csvFile, 2000, ",")) !== FALSE) {
-        $o = array();
-        for ($i = 0; $i < count($keys); $i++) {
-            $oArray[$keys[$i]] = $data[$i];
-        }
-        $o = $oArray;
-        $csvArray[] = $o;
-    }
-    fclose($csvFile);
-
-    $csv = $csvArray;
-    $csv[0]['filename'] = $_POST['VideoFile'];
-    $csv[0]['channel'] = $_POST['Channel'];
-//    $csv[0]['custom_id'] = ;
-//    $csv[0]['add_asset_labels'] = ;
-    $csv[0]['title'] = $_POST['VideoTitleChs'];
-    $csv[0]['description'] = $_POST['VideoDesChs'];
-    $csv[0]['keywords'] = $_POST['VideoKeywordsChs'];
-    $csv[0]['spoken_language'] = 'zh-cn';
-//    $csv[0]['caption_file'] = ;
-    $csv[0]['caption_language'] = 'EN';
-    $csv[0]['category'] = 'Entertainment';
-    $csv[0]['privacy'] = $_POST['PublishImmediately'] == 'yes' ? 'public' : 'private';
-    $csv[0]['notify_subscribers'] = $_POST['NotifySubscribers'] == 'yes' ? 'true' : 'false';
-//    $csv[0]['start_time'] = ;
-//    $csv[0]['end_time'] = ;
-    $csv[0]['custom_thumbnail'] = $_POST['Thumbnail'];
-//    $csv[0]['ownership'] = ;
-//    $csv[0]['block_outside_ownership'] = ;
-    $csv[0]['usage_policy'] = $_POST['UsagePolicy'];
-//    $csv[0]['enable_content_id'] = ;
-//    $csv[0]['reference_exclusions'] = ;
-    $csv[0]['match_policy'] = $_POST['MatchPolicy'];
-//    $csv[0]['ad_types'] = ;
-    $csv[0]['ad_break_times'] = $_POST['AdBreak'];
-    $csv[0]['playlist_id'] = $_POST['Playlist'];
-//    $csv[0]['require_paid_subscription'] = ;
-    $csv_keys = array_keys($csv[0]);
-    $csv_values = array_values($csv[0]);
+    $data=[
+        [$_POST['VideoFile'],$_POST['Channel'],'','',$_POST['VideoTitleChs'],$_POST['VideoDesChs'],$_POST['VideoKeywordsChs'],'zh-cn','','EN','Entertainment',$_POST['PublishImmediately'] == 'yes' ? 'public' : 'private',$_POST['NotifySubscribers'] == 'yes' ? 'true' : 'false','','',$_POST['Thumbnail'],'','',$_POST['UsagePolicy'],'','',$_POST['MatchPolicy'],'',$_POST['AdBreak'],$_POST['Playlist'],'']
+    ];
+    $header_data=[
+        'filename','channel','custom_id','add_asset_labels','title','description','keywords','spoken_language','caption_file','caption_language','category','privacy','notify_subscribers','start_time','end_time','custom_thumbnail','ownership','block_outside_ownership','usage_policy','enable_content_id','reference_exclusions','match_policy','ad_types','ad_break_times','playlist_id','require_paid_subscription'
+    ];
+    $file_name=$_POST['VideoFile'] . '.csv';
     $csv_file = fopen('./csv/'.$_POST['VideoFile'].'.csv', 'w');
-    fwrite($csv_file, implode($csv_keys,',')."\n".implode($csv_values,','));
+    fwrite($csv_file, implode($header_data,',')."\n".implode($data[0],','));
     fclose($csv_file);
+    export_csv($data,$header_data,$file_name);
+}
 
-    $filename =  './csv/'.$_POST['VideoFile'].'.csv';
-
-    header ( "Cache-Control: max-age=0" );
-    header ( "Content-Description: File Transfer" );
-    header ( 'Content-disposition: attachment; filename=' . basename ($filename));
-    header ( "Content-Transfer-Encoding: binary" );
-    header ( 'Content-Length: ' . filesize ( $filename ) );
-    @readfile ( $filename );
+function export_csv($data = [], $header_data = [], $file_name = '')
+{
+    header('Content-Type: application/vnd.ms-excel');
+    header('Content-Disposition: attachment;filename='.$file_name);
+    header('Cache-Control: max-age=0');
+    $fp = fopen('php://output', 'a');
+    if (!empty($header_data)) {
+        foreach ($header_data as $key => $value) {
+            $header_data[$key] = iconv('utf-8', 'gbk', $value);
+        }
+        fputcsv($fp, $header_data);
+    }
+    $num = 0;
+    //每隔$limit行，刷新一下输出buffer，不要太大，也不要太小
+    $limit = 100000;
+    //逐行取出数据，不浪费内存
+    $count = count($data);
+    if ($count > 0) {
+        for ($i = 0; $i < $count; $i++) {
+            $num++;
+            //刷新一下输出buffer，防止由于数据过多造成问题
+            if ($limit == $num) {
+                ob_flush();
+                flush();
+                $num = 0;
+            }
+            $row = $data[$i];
+            foreach ($row as $key => $value) {
+                $row[$key] = iconv('utf-8', 'gbk', $value);
+            }
+            fputcsv($fp, $row);
+        }
+    }
+    fclose($fp);
 }
