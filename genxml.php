@@ -191,7 +191,7 @@ if($_POST['type'] == 'xml') {
     $breaks = implode('|',explode("\r\n",trim($_POST['AdBreak'])));
     $keywords = implode('|',explode("\r\n",trim($_POST['VideoKeywordsChs'])));
     $data=[
-        [$_POST['VideoFile'],$_POST['Channel'],'','',$_POST['VideoTitleChs'],$_POST['VideoDesChs'],$keywords,'zh-cn','','EN','Entertainment',$_POST['PublishImmediately'] == 'yes' ? 'public' : 'private',$_POST['NotifySubscribers'] == 'yes' ? 'true' : 'false','','',$_POST['Thumbnail'],'','',$_POST['UsagePolicy'],empty($_POST['MatchPolicy'])?'':'yes','',$_POST['MatchPolicy'],'',$breaks,$_POST['Playlist'],'']
+        [$_POST['VideoFile'],$_POST['Channel'],'','',$_POST['VideoTitleChs'],$_POST['VideoDesChs'],$keywords,'zh-cn','','EN','Entertainment',$_POST['PublishImmediately'] == 'yes' ? 'public' : 'private',$_POST['NotifySubscribers'] == 'yes' ? 'yes' : 'no','','',$_POST['Thumbnail'],'','',$_POST['UsagePolicy'],empty($_POST['MatchPolicy'])?'':'yes','',$_POST['MatchPolicy'],'',$breaks,$_POST['Playlist'],'']
     ];
     $header_data=[
         'filename','channel','custom_id','add_asset_labels','title','description','keywords','spoken_language','caption_file','caption_language','category','privacy','notify_subscribers','start_time','end_time','custom_thumbnail','ownership','block_outside_ownership','usage_policy','enable_content_id','reference_exclusions','match_policy','ad_types','ad_break_times','playlist_id','require_paid_subscription'
