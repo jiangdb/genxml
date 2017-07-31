@@ -13,7 +13,6 @@
 	font-size: 30px;
 	margin: 0 auto;
 	margin-bottom:2px;
-	margin-left:2px;
 	font-weight: bold;
 	padding-left:20px;
 }
@@ -55,9 +54,7 @@
 	margin-bottom:2px;
 	font-weight: bold;
 	padding-left:20px;
-	
 	}
-	
 
 .neirong3 {
 	background-color: #FC0;
@@ -79,7 +76,7 @@
 .beijin3 {
 }
 .title1 {
-	width:640px; 
+	width:640px;
 }
 .neirong01 {
 	font-size: 25px;
@@ -111,14 +108,14 @@
 
 </style>
 <script language="javascript">
- 
- 
+
+
 function check(type)
 {
 document.getElementById("type").value = type;
 var temp = document.getElementById("Notification").value;
 var str="";
-if(temp!="" && temp.indexOf(",")>0)	
+if(temp!="" && temp.indexOf(",")>0)
 {
 var arremail=temp.split(",");
 for(var i=0;i <arremail.length;i++)
@@ -152,35 +149,35 @@ alert(str);
     <p>v1.4</p>
 </div>
 <div class="biaoti1">
-<p>General</p> 
+<p>General</p>
 </div>
- 
+
  <div class="tianlan">
     <div style="float:left; height:50px; line-height:50px; width:300px;border-right:5px solid #FFF; " ><span class="zhushi">*</span> Notification Email: </div>
     <div style="float:left; width:580px; margin-top:8px;padding-left:10px; "><input name="Notification" type="text" id="Notification" style=" font-size: 20px" size="50" placeholder="[email address] seperated by &#39;,&#39;" >
 
     </div >
-</div>     
-  
+</div>
+
   <div class="tianlan">
     <div style="float:left; height:50px; line-height:50px; width:300px;border-right:5px solid #FFF; " ><span class="zhushi">*</span> Channel:  </div>
     <div style="float:left; width:580px; margin-top:8px;padding-left:10px;">
       <input name="Channel" type="text" id="Channel" style=" font-size: 20px" size="50" placeholder="channel id" required="" />
     </div >
-  </div>   
-  
+  </div>
+
    <div class="tianlan">
     <div style="float:left; height:50px; line-height:50px; width:300px; border-right:5px solid #FFF;" ><span class="zhushi">*</span>  URL:  </div>
     <div style="float:left; width:580px; margin-top:8px;padding-left:10px;">
       <input name="URL" type="text" id="URL" style=" font-size: 20px" size="50" placeholder="url" required="" />
     </div >
-  </div>    
- 
+  </div>
+
   <div class="tianlan">
     <div style="float:left; height:50px; line-height:50px; width:300px;border-right:5px solid #FFF;" ><span class="zhushi">*</span>  Video file:  </div>
     <div style="float:left; width:580px; margin-top:8px;padding-left:10px;"><input name="VideoFile" type="text" id="VideoFile" style=" font-size: 20px" size="50" placeholder="[filename]" required=""></div >
-  </div>  
- <div> 
+  </div>
+ <div>
   <div class="tianlan">
     <div style="float:left; height:50px; line-height:50px; width:300px;border-right:5px solid #FFF; " >Publish immediately: </div>
     <div style="float:left">
@@ -192,96 +189,108 @@ alert(str);
     <input  type="radio" name="PublishImmediately" id="no" value="no" checked="checked"style="width:25px;height:25px" />
         </div >
   </div>
-  </div>  
+  </div>
   </div>
  <div class="tianlan">
     <div style="float:left; height:50px; line-height:50px; width:300px; border-right:5px solid #FFF;" ><span >Thumbnail:</span></div>
     <div style="float:left; width:580px; margin-top:8px;padding-left:10px;">
       <input name="Thumbnail" type="text" id="Thumbnail" style=" font-size: 20px" size="50" placeholder="[filename ,empty indicates no]" />
     </div >
-</div>   
-  
+</div>
+
   <div class="tianlan">
     <div style="float:left; height:50px; line-height:50px; width:300px; border-right:5px solid #FFF;" ><span class="zhushi">*</span><span> Playlist:</span></div>
     <div style="float:left; width:580px; margin-top:8px;padding-left:10px;">
       <input name="Playlist" type="text" id="Playlist" style=" font-size: 20px" size="50" placeholder="[playlist id]" required="" />
     </div >
-  </div>   
-        
+  </div>
+
 <div class="tianlan">
     <div style="float:left; height:50px; line-height:50px; width:300px;border-right:5px solid #FFF;" ><span class="zhushi">* </span><span>Usage policy:</span></div>
     <div style="float:left; width:580px; margin-top:8px;padding-left:10px;">
       <input name="UsagePolicy" type="text" id="UsagePolicy" style=" font-size: 20px" size="50" placeholder="[usage policy id]" required="" />
     </div >
-</div>           
+</div>
 
 <div class="tianlan">
     <div style="float:left; height:50px; line-height:50px; width:300px;border-right:5px solid #FFF; " ><span>Match  policy:</span></div>
     <div style="float:left; width:580px; margin-top:8px;padding-left:10px;">
       <input name="MatchPolicy" type="text" id="MatchPolicy" style=" font-size: 20px" size="50" placeholder="[match policy id]" />
     </div >
-</div>         
-       
+</div>
+
 <div class="tianlan">
     <div style="float:left; height:50px; line-height:50px; width:300px;border-right:5px solid #FFF;" ><span>Notify subscribers:</span></div>
     <div style="float:left; width:300px;height:50px; line-height:50px;text-align: center;border-right:5px solid #FFF; ">
       <td width="325" align="center" bgcolor="#CBE7EB"><span class="neirong01">YES</span></td>
        <input type="radio" name="NotifySubscribers" id="NotifySubscribersYes" value="yes" checked="CHECKED"style="width:25px;height:25px"></div >
- 
+
   <div style="float:left; width:300px;height:50px; line-height:50px;text-align: center; ">
     <td width="325" align="center" bgcolor="#CBE7EB"><span class="neirong01">NO</span></td>
     <input type="radio" name="NotifySubscribers" id="NotifySubscribersNo" value="no" style="width:25px;height:25px"/>
-  </div> 
+  </div>
 </div>
    <div class="biaoti">
     <div style="float:left; height:200px; line-height:200px; width:300px;border-right:5px solid #FFF; " ><span><span class="zhushi">* </span>Adbreak：</span></div>
     <div style="float:left; width:580px; margin-top:20px;padding-left:10px;">
       <textarea name="AdBreak" id="Adbreak" style=" font-size: 25px" cols="45" rows="5" placeholder="HH:MM:SS" required=""></textarea>
     </div >
-  </div>  
-  
+  </div>
+
 <div class="neirong2 ">
      <div style="float:left; height:100px; line-height:100px; width:1000px; text-align: left; margin: 0 auto;margin-left:20px" >
    <span class="biaoti2">简体中文</span>
 </div>
 </div>
-       
+
 <div class="tianlan">
-    <div style="float:left; height:50px; line-height:50px; width:1000px;border-right:5px solid #FFF; " ><span class="zhushi">*</span><span class="title11">title:</span><span class="neirong">
-      <input name="VideoTitleChs" type="text" id="VideoTitleChs" style=" font-size: 30px" size="50" placeholder="title in simplified chinese" required="" />
-    </span></div>
-    
-</div>  
- 
-<div class="tianlan">
-    <div style="float:left; height:50px; line-height:50px; width:480px; text-align: center;border-right:5px solid #FFF;" ><span class="zhushi">*</span><span class="neirong01">description:</span></div>
+    <div style="float:left; height:50px; line-height:50px; width:480px; text-align: center;border-right:5px solid #FFF;" ><span class="zhushi">*</span><span class="neirong01">注意:</span></div>
    <div style="float:left; height:50px; line-height:50px; width:450px; text-align: center" ><span class="zhushi">*</span><span class="neirong01">keywords:</span></div>
-</div>  
+</div>
 
 <div class="biaoti">
     <div style="float:left; height:190px; line-height:190px; width:480px; text-align: center;margin-top:10px;border-right:5px solid #FFF;" >
-      <textarea name="VideoDesChs" id="Video description4" style=" font-size: 18px" cols="35" rows="6" placeholder="description in simplified chinese" required=""></textarea>
+      <ul id="Video notice4" style=" font-size: 18px; text-align: left; line-height: 30px;">
+        <li>建议20-30个keyword</li>
+        <li>建议使用节目名称、明星名称、集数和日期</li>
+        <li>前10个keyword比较关键</li>
+        <li>基于上条，尽量确保keyword同时出现在title和description中</li>
+      </ul>
   </div>
   <div style="float:left; height:190px; line-height:190px; width:400px; text-align: center;margin-top:10px;margin-left:40px" >
       <textarea name="VideoKeywordsChs" id="Video keyworkd4" style=" font-size: 18px" cols="35" rows="6" placeholder="keywords in simplified chinese" required=""></textarea>
   </div>
 </div>
 
+<div class="tianlan">
+    <div style="float:left; height:50px; line-height:50px; width:1000px;border-right:5px solid #FFF; " ><span class="zhushi">*</span><span class="title11">title:</span><span class="neirong">
+      <input name="VideoTitleChs" type="text" id="VideoTitleChs" style=" font-size: 30px" size="50" placeholder="title in simplified chinese" required="" />
+    </span></div>
+
+</div>
+
+<div class="biaoti">
+  <div style="float:left; height:200px; line-height:200px; width:300px;border-right:5px solid #FFF; " ><span><span class="zhushi">* </span>description: </span></div>
+  <div style="float:left; width:580px; margin-top:20px;padding-left:10px;" >
+      <textarea name="VideoDesChs" id="Video description4" style=" font-size: 25px" cols="45" rows="5" placeholder="description in simplified chinese" required=""></textarea>
+  </div>
+</div>
+
 <div class="neirong2 ">
       <div style="float:left; height:100px; line-height:100px; width:1280px; text-align: left; margin: 0 auto;margin-left:20px" ><span class="biaoti2">繁體中文</span></div>
 </div>
-       
+
 <div class="tianlan">
     <div style="float:left; height:50px; line-height:50px; width:1000px;border-right:5px solid #FFF; " ><span class="title11">title:
         <input name="VideoTitleCht" type="text" id="VideoTitleCht" style=" font-size: 30px" size="50" placeholder="title in traditional chinese" />
     </span ></div>
-    
-</div>  
- 
+
+</div>
+
 <div class="tianlan">
     <div style="float:left; height:50px; line-height:50px; width:480px; text-align: center;border-right:5px solid #FFF;" ><span class="neirong01">description:</span></div>
    <div style="float:left; height:50px; line-height:50px; width:400px; text-align: center" ><span class="neirong01">keywords:</span></div>
-</div>  
+</div>
 
 <div class="biaoti">
     <div style="float:left; height:190px; line-height:190px; width:480px; text-align: center;margin-top:10px;border-right:5px solid #FFF;" >
@@ -295,18 +304,18 @@ alert(str);
 <div class="neirong2 ">
       <div style="float:left; height:100px; line-height:100px; width:1280px; text-align: left; margin: 0 auto;margin-left:20px" ><span class="biaoti2">English</span></div>
 </div>
-       
+
 <div class="tianlan">
     <div style="float:left; height:50px; line-height:50px; width:1000px; border-right:5px solid #FFF;" ><span class="title11">title:</span>
       <input name="VideoTitleEn" type="text" id="textfield14" style=" font-size: 30px" size="50" placeholder="title in english" />
     </div>
-  
-</div>  
- 
+
+</div>
+
 <div class="tianlan">
     <div style="float:left; height:50px; line-height:50px; width:480px; text-align: center;border-right:5px solid #FFF;" ><span class="neirong01">description:</span></div>
    <div style="float:left; height:50px; line-height:50px; width:400px; text-align: center" ><span class="neirong01">keywords:</span></div>
-</div>  
+</div>
 
 <div class="biaoti">
     <div style="float:left; height:190px; line-height:190px; width:480px; text-align: center;margin-top:10px;border-right:5px solid #FFF;" >
@@ -335,4 +344,4 @@ alert(str);
 
 
 </body></html>
-       
+
