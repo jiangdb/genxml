@@ -6,10 +6,11 @@
  * Time: 15:56
  */
 
-if($_POST['type'] == 'xml') {
-    function handleVideo(SimpleXMLElement $e, $lang) {
-        $titleLength = mb_strlen($_POST['VideoTitle'.$lang], 'UTF-8');
-        $desLength = mb_strlen($_POST['VideoDes'.$lang], 'UTF-8');
+if ($_POST['type'] == 'xml') {
+    function handleVideo(SimpleXMLElement $e, $lang)
+    {
+        $titleLength = mb_strlen($_POST['VideoTitle' . $lang], 'UTF-8');
+        $desLength = mb_strlen($_POST['VideoDes' . $lang], 'UTF-8');
         if ($titleLength > 100) {
             return -1;
         }
@@ -17,12 +18,12 @@ if($_POST['type'] == 'xml') {
             return -2;
         }
 
-        $e->addChild('title',htmlspecialchars($_POST['VideoTitle'.$lang]));
-        $e->addChild('description', str_replace("\r\n","\n",htmlspecialchars($_POST['VideoDes'.$lang], ENT_QUOTES)));
-        $kwArr = explode("\r\n",trim($_POST['VideoKeywords'.$lang]));
-        $count=0;
-        $kwLength=0;
-        foreach($kwArr as $keyword) {
+        $e->addChild('title', htmlspecialchars($_POST['VideoTitle' . $lang]));
+        $e->addChild('description', str_replace("\r\n", "\n", htmlspecialchars($_POST['VideoDes' . $lang], ENT_QUOTES)));
+        $kwArr = explode("\r\n", trim($_POST['VideoKeywords' . $lang]));
+        $count = 0;
+        $kwLength = 0;
+        foreach ($kwArr as $keyword) {
             $e->addChild('keyword', $keyword);
             $kwLength += mb_strlen($keyword, 'UTF-8');
             if ($kwLength > 500) {
@@ -38,22 +39,22 @@ if($_POST['type'] == 'xml') {
     }
 
     $xml = simplexml_load_file('YYYYMMDDbenpaobaxiogndi3.xml');
-    $xml->addAttribute('notification_email',$_POST['Notification']);
-    $xml->addAttribute('channel',$_POST['Channel']);
+    $xml->addAttribute('notification_email', $_POST['Notification']);
+    $xml->addAttribute('channel', $_POST['Channel']);
 
     foreach ($xml->children() as $child) {
         if ($child->getName() == 'asset') {
-            $child->addChild('title',htmlspecialchars($_POST['VideoTitleChs'], ENT_QUOTES));
-            $child->addChild('url',$_POST['URL']);
+            $child->addChild('title', htmlspecialchars($_POST['VideoTitleChs'], ENT_QUOTES));
+            $child->addChild('url', $_POST['URL']);
         }
         if ($child->getName() == 'file') {
             foreach ($child->attributes() as $name => $value) {
                 if ($name == 'type' && $value == 'video') {
-                    $child->addChild('filename',$_POST['VideoFile']);
+                    $child->addChild('filename', $_POST['VideoFile']);
                     if ($_POST['PublishImmediately'] == 'yes') {
-                        $child->addAttribute('urgent_reference','True');
+                        $child->addAttribute('urgent_reference', 'True');
                     }
-                }else if ($name == 'type' && $value == 'image') {
+                } else if ($name == 'type' && $value == 'image') {
                     if (!empty($_POST['Thumbnail'])) {
                         $child->addChild('filename', $_POST['Thumbnail']);
                     }
@@ -66,13 +67,13 @@ if($_POST['type'] == 'xml') {
                     foreach ($subchild->attributes() as $name => $value) {
                         if ($name == 'lang' && $value == 'zh-Hans') {
                             $ret = handleVideo($subchild, 'Chs');
-                            if ($ret == -1 ) {
+                            if ($ret == -1) {
                                 echo "error: title exceed 100 characters";
                                 exit;
-                            }elseif ($ret == -2) {
+                            } elseif ($ret == -2) {
                                 echo "error: des exceed 5000 characters";
                                 exit;
-                            }elseif ($ret == -3) {
+                            } elseif ($ret == -3) {
                                 echo "error: keywords exceed 500 characters";
                                 exit;
                             }
@@ -81,12 +82,12 @@ if($_POST['type'] == 'xml') {
                 }
             }
             if ($_POST['PublishImmediately'] == 'yes') {
-                $child->addChild('public','True');
-            }else{
-                $child->addChild('public','False');
+                $child->addChild('public', 'True');
+            } else {
+                $child->addChild('public', 'False');
             }
             if ($_POST['NotifySubscribers'] == 'no') {
-                $child->addChild('notify_subscribers','False');
+                $child->addChild('notify_subscribers', 'False');
             }
             if (!empty($_POST['Thumbnail'])) {
                 $artwork = $child->addChild('artwork');
@@ -97,13 +98,13 @@ if($_POST['type'] == 'xml') {
                 $locale = $child->addChild('localized_info');
                 $locale->addAttribute('lang', 'zh-Hant');
                 $ret = handleVideo($locale, 'Cht');
-                if ($ret == -1 ) {
+                if ($ret == -1) {
                     echo "error: title exceed 100 characters";
                     exit;
-                }elseif ($ret == -2) {
+                } elseif ($ret == -2) {
                     echo "error: des exceed 5000 characters";
                     exit;
-                }elseif ($ret == -3) {
+                } elseif ($ret == -3) {
                     echo "error: keywords exceed 500 characters";
                     exit;
                 }
@@ -112,38 +113,38 @@ if($_POST['type'] == 'xml') {
                 $locale = $child->addChild('localized_info');
                 $locale->addAttribute('lang', 'en');
                 $ret = handleVideo($locale, 'En');
-                if ($ret == -1 ) {
+                if ($ret == -1) {
                     echo "error: title exceed 100 characters";
                     exit;
-                }elseif ($ret == -2) {
+                } elseif ($ret == -2) {
                     echo "error: des exceed 5000 characters";
                     exit;
-                }elseif ($ret == -3) {
+                } elseif ($ret == -3) {
                     echo "error: keywords exceed 500 characters";
                     exit;
                 }
             }
         }
         if ($child->getName() == 'video_breaks') {
-            $breaks = explode("\r\n",trim($_POST['AdBreak']));
-            foreach($breaks as $break) {
+            $breaks = explode("\r\n", trim($_POST['AdBreak']));
+            foreach ($breaks as $break) {
                 $breakItem = $child->addChild('break');
-                $breakItem->addAttribute('time',$break);
+                $breakItem->addAttribute('time', $break);
             }
         }
         if ($child->getName() == 'playlist') {
-            $child->addAttribute('id',$_POST['Playlist']);
-            $child->addAttribute('channel',$_POST['Channel']);
+            $child->addAttribute('id', $_POST['Playlist']);
+            $child->addAttribute('channel', $_POST['Channel']);
         }
         if ($child->getName() == 'claim') {
-            $child->addAttribute('rights_policy',"/external/rights_policy[@name='".$_POST['UsagePolicy']."']");
+            $child->addAttribute('rights_policy', "/external/rights_policy[@name='" . $_POST['UsagePolicy'] . "']");
         }
         if (!empty($_POST['MatchPolicy'])) {
             if ($child->getName() == 'relationship') {
                 foreach ($child->attributes() as $name => $value) {
                     if ($name == 'tag' && $value == 'video_relationship') {
-                        $relateItem  = $child->addChild('related_item');
-                        $relateItem->addAttribute('path',"/feed/asset[@tag='YYYYMMDDvideoHD.ts']");
+                        $relateItem = $child->addChild('related_item');
+                        $relateItem->addAttribute('path', "/feed/asset[@tag='YYYYMMDDvideoHD.ts']");
                     }
                 }
             }
@@ -162,17 +163,16 @@ if($_POST['type'] == 'xml') {
 
     if (!empty($_POST['Thumbnail'])) {
         $file = $xml->addChild('file');
-        $file->addAttribute('type','image');
-        $file->addAttribute('tag','YYYYMMDDvideoHD.jpg');
+        $file->addAttribute('type', 'image');
+        $file->addAttribute('tag', 'YYYYMMDDvideoHD.jpg');
         $file->addChild('filename', $_POST['Thumbnail']);
     }
 
-
     $info = pathinfo($_POST['VideoFile']);
-    if (array_key_exists('extension',$info)) {
-        $filename =  './xml/'.basename($_POST['VideoFile'],'.'.$info['extension']).'.xml';
-    }else{
-        $filename =  './xml/'.$_POST['VideoFile'].'.xml';
+    if (array_key_exists('extension', $info)) {
+        $filename = './xml/' . basename($_POST['VideoFile'], '.' . $info['extension']) . '.xml';
+    } else {
+        $filename = './xml/' . $_POST['VideoFile'] . '.xml';
     }
     $dom = new DOMDocument;
     $dom->preserveWhiteSpace = false;
@@ -181,32 +181,47 @@ if($_POST['type'] == 'xml') {
 //echo $dom->saveXML();
     $dom->save($filename);
 
-    header ( "Cache-Control: max-age=0" );
-    header ( "Content-Description: File Transfer" );
-    header ( 'Content-disposition: attachment; filename=' . basename ($filename));
-    header ( "Content-Transfer-Encoding: binary" );
-    header ( 'Content-Length: ' . filesize ( $filename ) );
-    @readfile ( $filename );
-} else {
-    $breaks = implode('|',explode("\r\n",trim($_POST['AdBreak'])));
-    $keywords = implode('|',explode("\r\n",trim($_POST['VideoKeywordsChs'])));
-    $data=[
-        [$_POST['VideoFile'],$_POST['Channel'],'','',$_POST['VideoTitleChs'],$_POST['VideoDesChs'],$keywords,'zh-cn','','EN','Entertainment',$_POST['PublishImmediately'] == 'yes' ? 'public' : 'private',$_POST['NotifySubscribers'] == 'yes' ? 'yes' : 'no','','',$_POST['Thumbnail'],'','',$_POST['UsagePolicy'],empty($_POST['MatchPolicy'])?'':'yes','',$_POST['MatchPolicy'],'',$breaks,$_POST['Playlist'],'']
+    header("Cache-Control: max-age=0");
+    header("Content-Description: File Transfer");
+    header('Content-disposition: attachment; filename=' . basename($filename));
+    header("Content-Transfer-Encoding: binary");
+    header('Content-Length: ' . filesize($filename));
+    @readfile($filename);
+} else if ($_POST['type'] == 'csv1') {
+    $breaks = implode('|', explode("\r\n", trim($_POST['AdBreak'])));
+    $keywords = implode('|', explode("\r\n", trim($_POST['VideoKeywordsChs'])));
+    $data = [
+        [$_POST['VideoFile'], $_POST['Channel'], '', '', $_POST['VideoTitleChs'], $_POST['VideoDesChs'], $keywords, 'zh-cn', '', 'EN', 'Entertainment', $_POST['PublishImmediately'] == 'yes' ? 'public' : 'private', $_POST['NotifySubscribers'] == 'yes' ? 'yes' : 'no', '', '', $_POST['Thumbnail'], '', '', $_POST['UsagePolicy'], empty($_POST['MatchPolicy']) ? '' : 'yes', '', $_POST['MatchPolicy'], '', $breaks, $_POST['Playlist'], ''],
     ];
-    $header_data=[
-        'filename','channel','custom_id','add_asset_labels','title','description','keywords','spoken_language','caption_file','caption_language','category','privacy','notify_subscribers','start_time','end_time','custom_thumbnail','ownership','block_outside_ownership','usage_policy','enable_content_id','reference_exclusions','match_policy','ad_types','ad_break_times','playlist_id','require_paid_subscription'
+    $header_data = [
+        'filename', 'channel', 'custom_id', 'add_asset_labels', 'title', 'description', 'keywords', 'spoken_language', 'caption_file', 'caption_language', 'category', 'privacy', 'notify_subscribers', 'start_time', 'end_time', 'custom_thumbnail', 'ownership', 'block_outside_ownership', 'usage_policy', 'enable_content_id', 'reference_exclusions', 'match_policy', 'ad_types', 'ad_break_times', 'playlist_id', 'require_paid_subscription',
     ];
-    $file_name=$_POST['VideoFile'] . '.csv';
-    $csv_file = fopen('./csv/'.$_POST['VideoFile'].'.csv', 'w');
-    fwrite($csv_file, implode($header_data,',')."\n".implode($data[0],','));
+    $file_name = $_POST['VideoFile'] . '.csv';
+    $csv_file = fopen('./csv/' . $_POST['VideoFile'] . '.csv', 'w');
+    fwrite($csv_file, implode($header_data, ',') . "\n" . implode($data[0], ','));
     fclose($csv_file);
-    export_csv($data,$header_data,$file_name);
+    exportCsv($data, $header_data, $file_name);
+} else {
+    $keywords_cht = implode('|', explode("\r\n", trim($_POST['VideoKeywordsCht'])));
+    $keywords_en = implode('|', explode("\r\n", trim($_POST['VideoKeywordsEn'])));
+    $data_multi_lang = [
+        ['', 'No', 'en-US', $_POST['VideoTitleEn'], $_POST['VideoDesEn'], $keywords_en],
+        ['', 'No', 'zh-Hant', $_POST['VideoTitleCht'], $_POST['VideoDesCht'], $keywords_cht],
+    ];
+    $header_data_multi_lang = [
+        'video_id', 'is_primary_language', 'language', 'title', 'description', 'keywords',
+    ];
+    $file_name_multi_lang = 'multi-lang-' . $_POST['VideoFile'] . '.csv';
+    $csv_file_multi_lang = fopen('./csv/multi-lang-' . $_POST['VideoFile'] . '.csv', 'w');
+    fwrite($csv_file_multi_lang, implode($header_data_multi_lang, ',') . "\n" . implode($data_multi_lang[0], ','));
+    fclose($csv_file_multi_lang);
+    exportCsv($data_multi_lang, $header_data_multi_lang, $file_name_multi_lang);
 }
 
-function export_csv($data = [], $header_data = [], $file_name = '')
+function exportCsv($data = [], $header_data = [], $file_name = '')
 {
     header('Content-Type: application/vnd.ms-excel');
-    header('Content-Disposition: attachment;filename='.$file_name);
+    header('Content-Disposition: attachment;filename=' . $file_name);
     header('Cache-Control: max-age=0');
     $fp = fopen('php://output', 'a');
     if (!empty($header_data)) {
