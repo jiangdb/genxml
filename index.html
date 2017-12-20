@@ -112,31 +112,65 @@
 
 function check(type)
 {
-document.getElementById("type").value = type;
-var temp = document.getElementById("Notification").value;
-var str="";
-if(temp!="" && temp.indexOf(",")>0)
-{
-var arremail=temp.split(",");
-for(var i=0;i <arremail.length;i++)
-{
-if(arremail[i].replace(/\s+/g,"").search(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/)==-1)
-{
-str=str+"邮箱"+arremail[i]+"格式错误!\n";
+    document.getElementById("type").value = type;
+    var temp = document.getElementById("Notification").value;
+    var str="";
+    if(temp!="" && temp.indexOf(",")>0)
+    {
+        var arremail=temp.split(",");
+        for(var i=0;i <arremail.length;i++)
+        {
+            if(arremail[i].replace(/\s+/g,"").search(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/)==-1)
+            {
+                str=str+"邮箱"+arremail[i]+"格式错误!\n";
+            }
+        }
+    }
+    else
+    {
+        if(temp.replace(/\s+/g,"").search(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/)==-1)
+        {
+            str="邮箱"+temp+"格式错误!\n";
+        }
+    }
+    if(str!="")
+    {
+        alert(str);
+    }
 }
-}
-}
-else
+
+function csv2Submit()
 {
-if(temp.replace(/\s+/g,"").search(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/)==-1)
-{
-str="邮箱"+temp+"格式错误!\n";
-}
-}
-if(str!="")
-{
-alert(str);
-}
+    var fields = [
+        'VideoTitleCht',
+        'textarea13',
+        'textarea14',
+        'textfield14',
+        'textarea15',
+        'textarea16',
+    ];
+    var name = [
+        'title in traditional chinese',
+        'description in traditional chinese',
+        'keywords in traditional chinese',
+        'title in english',
+        'description in english',
+        'keywords in english',
+    ];
+    for (var i=0; i<fields.length;i++) {
+        var val = document.getElementById(fields[i]).value;
+        if (val == '') {
+            alert(name[i] + ' is needed');
+            return;
+        }
+    }
+    document.getElementById('titleEn').value = (document.getElementById('textfield14').value);
+    document.getElementById('desEn').value = (document.getElementById('textarea15').value);
+    document.getElementById('keywordsEn').value = (document.getElementById('textarea16').value);
+    document.getElementById('titleCht').value = (document.getElementById('VideoTitleCht').value);
+    document.getElementById('desCht').value = (document.getElementById('textarea13').value);
+    document.getElementById('keywordsCht').value = (document.getElementById('textarea14').value);
+    document.getElementById('csv2').submit();
 }
 </script>
 
@@ -178,6 +212,12 @@ alert(str);
     <div style="float:left; width:580px; margin-top:8px;padding-left:10px;"><input name="VideoFile" type="text" id="VideoFile" style=" font-size: 20px" size="50" placeholder="[filename]" required=""></div >
   </div>
  <div>
+     <div class="biaoti">
+         <div style="float:left; height:200px; line-height:200px; width:300px;border-right:5px solid #FFF; " ><span>Asset labels：</span></div>
+         <div style="float:left; width:580px; margin-top:20px;padding-left:10px;">
+             <textarea name="asset_labels" id="asset_labels" style=" font-size: 20px" cols="49" rows="7"></textarea>
+         </div >
+     </div>
   <div class="tianlan">
     <div style="float:left; height:50px; line-height:50px; width:300px;border-right:5px solid #FFF; " >Publish immediately: </div>
     <div style="float:left">
@@ -295,10 +335,10 @@ alert(str);
 
 <div class="biaoti">
     <div style="float:left; height:190px; line-height:190px; width:480px; text-align: center;margin-top:10px;border-right:5px solid #FFF;" >
-      <textarea name="VideoDesCht" id="textarea13" style=" font-size:18px" cols="35" rows="6" placeholder="description in simplified chinese" ></textarea>
+      <textarea name="VideoDesCht" id="textarea13" style=" font-size:18px" cols="35" rows="6" placeholder="description in traditional chinese" ></textarea>
   </div>
   <div style="float:left; height:190px; line-height:190px; width:400px; text-align: center;margin-top:10px;margin-left:40px" >
-      <textarea name="VideoKeywordsCht" id="textarea14" style=" font-size:18px" cols="35" rows="6" placeholder="keywords in simplified chinese" ></textarea>
+      <textarea name="VideoKeywordsCht" id="textarea14" style=" font-size:18px" cols="35" rows="6" placeholder="keywords in traditional chinese" ></textarea>
   </div>
 </div>
 
@@ -320,10 +360,10 @@ alert(str);
 
 <div class="biaoti">
     <div style="float:left; height:190px; line-height:190px; width:480px; text-align: center;margin-top:10px;border-right:5px solid #FFF;" >
-      <textarea name="VideoDesEn" id="textarea15" style=" font-size: 18px" cols="35" rows="6" placeholder="description in simplified chinese" ></textarea>
+      <textarea name="VideoDesEn" id="textarea15" style=" font-size: 18px" cols="35" rows="6" placeholder="description in english" ></textarea>
   </div>
   <div style="float:left; height:190px; line-height:190px; width:400px; text-align: center;margin-top:10px;margin-left:40px" >
-      <textarea name="VideoKeywordsEn" id="textarea16" style=" font-size: 18px" cols="35" rows="6" placeholder="keywords in simplified chinese" ></textarea>
+      <textarea name="VideoKeywordsEn" id="textarea16" style=" font-size: 18px" cols="35" rows="6" placeholder="keywords in english" ></textarea>
   </div>
 </div>
     <input id="type" name="type" value="" type="hidden">
@@ -331,11 +371,21 @@ alert(str);
 <div class="neirong2 ">
       <div style="float:left; height:100px; line-height:100px; width:1000px; text-align: center; margin: 0 auto;" >
    <input class="submit" type="submit" name="submit" value="生成XML" onclick="check('xml')" style=" width:200px; height:80px;">
-   <input class="submit" type="submit" name="submit" value="生成CSV1" onclick="check('csv1')" style=" width:200px; height:80px;">
-   <input class="submit" type="submit" name="submit" value="生成CSV2" onclick="check('csv2')" style=" width:200px; height:80px;">
+   <input class="submit" type="submit" name="submit" value="生成CSV" onclick="check('csv1')" style=" width:200px; height:80px;">
+   <input class="submit" type="button" name="button" value="生成多语言CSV" onclick="csv2Submit()" style=" width:200px; height:80px;">
 </div>
 </div>
 
+</form>
+
+<form method="post" action="./genxml.php" id="csv2">
+    <input name="VideoTitleEn" type="hidden" id="titleEn"/>
+    <input name="VideoDesEn" type="hidden" id="desEn" />
+    <input name="VideoKeywordsEn" type="hidden" id="keywordsEn" />
+    <input name="VideoTitleCht" type="hidden" id="titleCht"/>
+    <input name="VideoDesCht" type="hidden" id="desCht" />
+    <input name="VideoKeywordsCht" type="hidden" id="keywordsCht" />
+    <input name="type" value="csv2" type="hidden">
 </form>
 <p>&nbsp;</p>
 
